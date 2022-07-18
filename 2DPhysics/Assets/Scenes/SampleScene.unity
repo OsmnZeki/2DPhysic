@@ -224,7 +224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &920530167
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -334,6 +334,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c52da301d33644096a39401e7a83e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testObj: {fileID: 920530169}
-  pivot: {x: 1, y: 0}
-  degreeAngle: 90
+  rectangles: []
+  circles:
+  - center: {x: 0, y: 0}
+    angle: 0
+    radius: 0
+  - center: {x: 0, y: 0}
+    angle: 0
+    radius: 1

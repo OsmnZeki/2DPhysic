@@ -1,16 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.Lib
 {
+    [Serializable]
     public class Rectangle2D : Rigidbody2D
     {
         public float width;
         public float height;
         
-        public Vector2[] vertices;
-        public Vector2[] faceNormals;
+        [NonSerialized]public Vector2[] vertices;
+        [NonSerialized]public Vector2[] faceNormals;
         
         public Rectangle2D(Vector2 center, float angle,float width, float height) : base(center, angle)
         {

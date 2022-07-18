@@ -6,18 +6,25 @@ using UnityEngine;
 
 public class TestMono : MonoBehaviour
 {
-
-    public Transform testObj;
-    public Vector2 pivot;
-    public float degreeAngle;
-
     public PhysicEngine2D engine2D;
+
+    public Rectangle2D[] rectangles;
+    public Circle[] circles;
     
     // Start is called before the first frame update
     void Start()
     {
         engine2D = new PhysicEngine2D();
-        engine2D.rigidBodies.Add(new Rectangle2D(Vector2.zero, 0,1,1));
+
+        foreach (var r in rectangles)
+        {
+            engine2D.rigidBodies.Add(r);
+        }
+
+        foreach (var c in circles)
+        {
+            engine2D.rigidBodies.Add(c);
+        }
     }
 
     // Update is called once per frame
