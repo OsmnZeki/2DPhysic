@@ -16,11 +16,25 @@ namespace Scripts.Lib
             shapeType = ShapeType.Circle;
             this.radius = radius;
             startPoint =new Vector2(center.x, center.y - radius);
+            boundRadius = radius+.01f;
+        }
+
+
+        public override void Move(Vector2 moveVector)
+        {
+            center += moveVector;
+            startPoint += moveVector;
+        }
+
+        public override void Rotate(float angle)
+        {
+            this.angle += angle;
+            startPoint = startPoint.Rotate(center, angle);
         }
 
         public override void Draw()
         {
-            int nStep = 10;
+            int nStep = 20;
             float perAngle = (float)360/nStep;
             
             startPoint =new Vector2(center.x, center.y - radius);

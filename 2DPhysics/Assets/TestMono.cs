@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Scripts.Engine2D;
@@ -6,30 +7,89 @@ using UnityEngine;
 
 public class TestMono : MonoBehaviour
 {
-    public PhysicEngine2D engine2D;
+    public PhysicEngine2D physicEngine2D;
 
-    public Rectangle2D[] rectangles;
-    public Circle[] circles;
+    public float circleRadius;
+    public float boxWidth;
+    public float boxHeight;
+
+    public int selectedIdx = 0;
     
     // Start is called before the first frame update
     void Start()
     {
-        engine2D = new PhysicEngine2D();
 
-        foreach (var r in rectangles)
-        {
-            engine2D.rigidBodies.Add(r);
-        }
+        physicEngine2D = new PhysicEngine2D();
+        
+    }
 
-        foreach (var c in circles)
-        {
-            engine2D.rigidBodies.Add(c);
-        }
+    void FixedUpdate()
+    {
+        physicEngine2D.CollisionTest();
     }
 
     // Update is called once per frame
     void Update()
     {
-        engine2D.Draw();
+        
+        HandleInput();
+        
+        
+        physicEngine2D.DrawMesh();
+        //physicEngine2D.DrawBoundsCircle();
+    }
+
+
+    public void HandleInput()
+    {
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Circle circle = new Circle(mousePos, circleRadius, 0);
+            physicEngine2D.rigidBodies.Add(circle);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Rectangle2D rect = new Rectangle2D(mousePos, 0, boxWidth,boxHeight);
+            physicEngine2D.rigidBodies.Add(rect);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            selectedIdx = (selectedIdx + 1) % physicEngine2D.rigidBodies.Count;
+        }
+        
+        if(selectedIdx >= physicEngine2D.rigidBodies.Count) return;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            physicEngine2D.rigidBodies[selectedIdx].Move(new Vector2(0,.01f));
+        }
+        
+        if (Input.GetKey(KeyCode.S))
+        {
+            physicEngine2D.rigidBodies[selectedIdx].Move(new Vector2(0,-.01f));
+        }
+        
+        if (Input.GetKey(KeyCode.A))
+        {
+            physicEngine2D.rigidBodies[selectedIdx].Move(new Vector2(-.01f,0));
+        }
+        
+        if (Input.GetKey(KeyCode.D))
+        {
+            physicEngine2D.rigidBodies[selectedIdx].Move(new Vector2(.01f,0));
+        }
+        
+        if (Input.GetKey(KeyCode.Q))
+        {
+            physicEngine2D.rigidBodies[selectedIdx].Rotate(.1f);
+        }
+        
+        if (Input.GetKey(KeyCode.E))
+        {
+            physicEngine2D.rigidBodies[selectedIdx].Rotate(-.1f);
+        }
     }
 }

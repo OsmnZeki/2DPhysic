@@ -19,6 +19,7 @@ namespace Scripts.Lib
             shapeType = ShapeType.Rectangle;
             this.width = width;
             this.height = height;
+            boundRadius = Mathf.Sqrt(width * width + height * height) / 2;
 
             vertices = new Vector2[4];
             faceNormals = new Vector2[4];
@@ -32,6 +33,31 @@ namespace Scripts.Lib
             faceNormals[1] = vertices[2] - vertices[3];
             faceNormals[2] = vertices[3] - vertices[0];
             faceNormals[3] = vertices[0] - vertices[1];
+        }
+        
+
+        public override void Move(Vector2 moveVector)
+        {
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i] += moveVector;
+            }
+
+            center += moveVector;
+        }
+
+        public override void Rotate(float angle)
+        {
+            this.angle += angle;
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i] = vertices[i].Rotate(center, angle);
+            }
+            
+            faceNormals[0] = (vertices[1] - vertices[2]).normalized;
+            faceNormals[1] = (vertices[2] - vertices[3]).normalized;
+            faceNormals[2] = (vertices[3] - vertices[0]).normalized;
+            faceNormals[3] = (vertices[0] - vertices[1]).normalized;
         }
 
         public override void Draw()

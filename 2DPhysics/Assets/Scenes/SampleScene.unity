@@ -334,11 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c52da301d33644096a39401e7a83e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rectangles: []
-  circles:
-  - center: {x: 0, y: 0}
-    angle: 0
-    radius: 0
-  - center: {x: 0, y: 0}
-    angle: 0
-    radius: 1
+  circleRadius: 1
+  boxWidth: 1
+  boxHeight: 1
+  selectedIdx: 0

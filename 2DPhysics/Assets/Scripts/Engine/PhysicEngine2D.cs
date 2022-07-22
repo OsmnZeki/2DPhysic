@@ -13,15 +13,44 @@ namespace Scripts.Engine2D
         {
             rigidBodies = new List<Rigidbody2D>();
         }
-        
 
-        public void Draw()
+        public void Update()
+        {
+            CollisionTest();
+        }
+
+        public void CollisionTest()
+        {
+            for (int i = 0; i < rigidBodies.Count; i++)
+            {
+                for (int j = i+1; j < rigidBodies.Count; j++)
+                {
+                    if (rigidBodies[i].BoundTest(rigidBodies[j]))
+                    {
+                        rigidBodies[i].DrawBoundsCircle();
+                        rigidBodies[j].DrawBoundsCircle();
+                    }
+                    
+                }
+            }
+            
+        }
+
+        public void DrawMesh()
         {
             foreach (var rigidbody in rigidBodies)
             {
                 rigidbody.Draw();
             }
             
+        }
+
+        public void DrawBoundsCircle()
+        {
+            foreach (var rigidbody in rigidBodies)
+            {
+                rigidbody.DrawBoundsCircle();
+            }
         }
     }
 }
