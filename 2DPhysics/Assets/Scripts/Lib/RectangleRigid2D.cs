@@ -14,7 +14,7 @@ namespace Scripts.Lib
         [NonSerialized]public Vector2[] vertices;
         [NonSerialized]public Vector2[] faceNormals;
         
-        public RectangleRigid2D(Vector2 center, float angle,float width, float height) : base(center, angle)
+        public RectangleRigid2D(Vector2 center,float width, float height,float mass, float friction, float restitution) : base(center, mass,friction,restitution)
         {
             shapeType = ShapeType.Rectangle;
             this.width = width;
@@ -33,6 +33,8 @@ namespace Scripts.Lib
             faceNormals[1] = vertices[2] - vertices[3];
             faceNormals[2] = vertices[3] - vertices[0];
             faceNormals[3] = vertices[0] - vertices[1];
+
+            UpdateInertia();
         }
         
 
@@ -66,6 +68,18 @@ namespace Scripts.Lib
             Debug.DrawLine(vertices[1],vertices[2]);
             Debug.DrawLine(vertices[2],vertices[3]);
             Debug.DrawLine(vertices[3],vertices[0]);
+        }
+
+        public override void UpdateInertia()
+        {
+            if (invMass == 0)
+            {
+                inertia = 0;
+                return;
+            }
+
+            inertia = mass * (width * width + height * height) / 12;
+            inertia = 1 / inertia;
         }
     }
 }

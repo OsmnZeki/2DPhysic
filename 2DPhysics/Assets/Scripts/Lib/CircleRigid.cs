@@ -11,12 +11,14 @@ namespace Scripts.Lib
         public float radius;
         [NonSerialized]public Vector2 startPoint;
         
-        public CircleRigid(Vector2 center,float radius, float angle) : base(center, angle)
+        public CircleRigid(Vector2 center,float radius, float mass, float friction, float restitution) : base(center, mass,friction,restitution)
         {
             shapeType = ShapeType.Circle;
             this.radius = radius;
             startPoint =new Vector2(center.x, center.y - radius);
             boundRadius = radius+.01f;
+
+            UpdateInertia();
         }
 
 
@@ -53,6 +55,16 @@ namespace Scripts.Lib
             Debug.DrawLine(oldPos,startPoint);
         }
 
+        public override void UpdateInertia()
+        {
+            if (invMass == 0)
+            {
+                inertia = 0;
+                return;
+            }
+
+            inertia = mass * radius * radius / 12;
+        }
     }
 }
 

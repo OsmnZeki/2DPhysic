@@ -147,6 +147,7 @@ public class CollisionDetectionEngine
                 Vector2 radiusVect = r1.faceNormals[nearestEdge] * c2.radius;
                 collisionInfo.SetInfo(c2.radius - bestDistance, r1.faceNormals[nearestEdge],
                     c2.center - radiusVect);
+                return true;
             }
         }
         else
