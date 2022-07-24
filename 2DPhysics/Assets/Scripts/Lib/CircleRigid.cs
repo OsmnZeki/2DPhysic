@@ -6,12 +6,12 @@ using UnityEngine;
 namespace Scripts.Lib
 {
     [Serializable]
-    public class Circle : Rigidbody2D
+    public class CircleRigid : Rigidbody2D
     {
         public float radius;
         [NonSerialized]public Vector2 startPoint;
         
-        public Circle(Vector2 center,float radius, float angle) : base(center, angle)
+        public CircleRigid(Vector2 center,float radius, float angle) : base(center, angle)
         {
             shapeType = ShapeType.Circle;
             this.radius = radius;
@@ -52,6 +52,7 @@ namespace Scripts.Lib
             
             Debug.DrawLine(oldPos,startPoint);
         }
+
     }
 }
 

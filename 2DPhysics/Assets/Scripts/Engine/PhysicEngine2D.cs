@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Lib;
 using UnityEngine;
 using Rigidbody2D = Scripts.Lib.Rigidbody2D;
 
@@ -23,17 +24,25 @@ namespace Scripts.Engine2D
         {
             for (int i = 0; i < rigidBodies.Count; i++)
             {
-                for (int j = i+1; j < rigidBodies.Count; j++)
+                for (int j = i + 1; j < rigidBodies.Count; j++)
                 {
-                    if (rigidBodies[i].BoundTest(rigidBodies[j]))
+                    if (!rigidBodies[i].BoundTest(rigidBodies[j])) return;
+
+                    rigidBodies[i].DrawBoundsCircle();
+                    rigidBodies[j].DrawBoundsCircle();
+
+                    if (CollisionDetectionEngine.CollisionTest(rigidBodies[i], rigidBodies[j],
+                        out CollisionInfo collisionInfo))
                     {
-                        rigidBodies[i].DrawBoundsCircle();
-                        rigidBodies[j].DrawBoundsCircle();
+                        if (Vector2.Dot(collisionInfo.normal, rigidBodies[j].center - rigidBodies[i].center) < 0)
+                        {
+                            collisionInfo.ChangeDir();
+                        }
                     }
                     
+                    CollisionDetectionEngine.DrawCollisionInfo(collisionInfo);
                 }
             }
-            
         }
 
         public void DrawMesh()
@@ -42,7 +51,6 @@ namespace Scripts.Engine2D
             {
                 rigidbody.Draw();
             }
-            
         }
 
         public void DrawBoundsCircle()
@@ -54,5 +62,3 @@ namespace Scripts.Engine2D
         }
     }
 }
-
-

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Scripts.Lib
 {
     [Serializable]
-    public class Rectangle2D : Rigidbody2D
+    public class RectangleRigid2D : Rigidbody2D
     {
         public float width;
         public float height;
@@ -14,7 +14,7 @@ namespace Scripts.Lib
         [NonSerialized]public Vector2[] vertices;
         [NonSerialized]public Vector2[] faceNormals;
         
-        public Rectangle2D(Vector2 center, float angle,float width, float height) : base(center, angle)
+        public RectangleRigid2D(Vector2 center, float angle,float width, float height) : base(center, angle)
         {
             shapeType = ShapeType.Rectangle;
             this.width = width;

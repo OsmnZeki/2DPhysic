@@ -25,7 +25,7 @@ public class TestMono : MonoBehaviour
 
     void FixedUpdate()
     {
-        physicEngine2D.CollisionTest();
+        physicEngine2D.Update();
     }
 
     // Update is called once per frame
@@ -45,13 +45,13 @@ public class TestMono : MonoBehaviour
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Circle circle = new Circle(mousePos, circleRadius, 0);
+            CircleRigid circle = new CircleRigid(mousePos, circleRadius, 0);
             physicEngine2D.rigidBodies.Add(circle);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Rectangle2D rect = new Rectangle2D(mousePos, 0, boxWidth,boxHeight);
+            RectangleRigid2D rect = new RectangleRigid2D(mousePos, 0, boxWidth,boxHeight);
             physicEngine2D.rigidBodies.Add(rect);
         }
 

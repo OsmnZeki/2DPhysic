@@ -33,7 +33,7 @@ namespace Scripts.Lib
         public abstract void Rotate(float angle);
 
         public abstract void Draw();
-
+        
 
         public void DrawBoundsCircle()
         {
@@ -69,6 +69,8 @@ namespace Scripts.Lib
             
             return true;
         }
+        
+       
         
     }
 }
